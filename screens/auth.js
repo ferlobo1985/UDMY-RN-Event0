@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SafeAreaView, StyleSheet, Text, TextInput } from "react-native";
+import { Alert, Button, Pressable, SafeAreaView, StyleSheet, Text, TextInput } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { AppStyle } from "../constants";
@@ -9,6 +9,10 @@ export default function AuthScreen(){
     const [ type, setType] = useState(true);
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('')
+
+    const handleAuth = () => {
+        Alert.alert('AUTH')
+    }
     
     return(
         <LinearGradient
@@ -44,8 +48,28 @@ export default function AuthScreen(){
                     onChangeText={(text)=> setPassword(text)}
                 />
 
-                
+                <Button
+                    title={ type ? 'Sign up':'Sign in'}
+                    onPress={handleAuth}
+                />
 
+                <Pressable
+                    style={{ flexDirection:'row'}}
+                    onPress={()=> setType(!type)}
+                >
+                    <Text style={styles.typeText}>
+                        {!type ?
+                        'Don\'t have an account ?':
+                        'Already have an account ?'
+                        }
+                    </Text>
+                    <Text style={[styles.typeText, { fontWeight:'bold'}]}>
+                        {!type ?
+                        ' Sign up':
+                        ' Sign in'
+                        }
+                    </Text>
+                </Pressable>
 
 
             </SafeAreaView>
@@ -78,5 +102,10 @@ const styles = StyleSheet.create({
         fontSize:20,
         borderRadius:8,
         padding:10
+    },
+    typeText:{
+        fontSize:20,
+        marginTop:20,
+        color:'#fff'
     }
 })
