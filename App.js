@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { RootSiblingParent } from 'react-native-root-siblings';
 import AppContextProvider from './store/appContext';
 import RootNavigator from './navigation/rootNavigation';
 
@@ -24,7 +25,9 @@ export default function App() {
 
   return (
     <AppContextProvider>
-      <RootNavigator/>
+      <RootSiblingParent>
+        <RootNavigator/>
+      </RootSiblingParent>
     </AppContextProvider>
   );
 }

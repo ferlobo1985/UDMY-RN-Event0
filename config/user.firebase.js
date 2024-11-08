@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 import { setDoc, doc } from 'firebase/firestore'
 import { AUTH, DB } from './firebase'
 import { Alert } from 'react-native';
+import Toast from 'react-native-root-toast';
 
 export const signUpUser = async(email, password) =>{
     try{
@@ -9,18 +10,20 @@ export const signUpUser = async(email, password) =>{
         const request = await createUserWithEmailAndPassword(AUTH,email,password);
         await addUserToFirestore(request.user)
 
-        Alert.alert('Welcome !!')
+        Toast.show('Welcome !!')
     }catch(e){
-        Alert.alert(e);
+        Toast.show('Oops,try again')
+       // Alert.alert(e);
     }
 }
 
 export const signInUser = async(email,password) =>{
     try{
         await signInWithEmailAndPassword(AUTH,email,password);
-        Alert.alert('Welcome back!!')
+        Toast.show('Welcome back!!')
     } catch(e){
-        Alert.alert(e);
+        Toast.show('Oops,try again')
+        // Alert.alert(e);
     }
 }
 
@@ -35,7 +38,7 @@ export const addUserToFirestore= async(user) =>{
         }
         await setDoc(doc(DB,'users',user.uid),newUser);
     }catch(e){
-        Alert.alert(e);
+        Toast.show('Oops,something happened')
     }
 
 }
