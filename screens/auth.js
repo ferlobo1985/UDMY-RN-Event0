@@ -3,7 +3,7 @@ import { Alert, Button, Pressable, SafeAreaView, StyleSheet, Text, TextInput } f
 import { LinearGradient } from "expo-linear-gradient";
 
 import { AppStyle } from "../constants";
-import { signUpUser } from '../config/user.firebase';
+import { signUpUser, signInUser } from '../config/user.firebase';
 
 export default function AuthScreen(){
     const [ type, setType] = useState(true);
@@ -20,6 +20,8 @@ export default function AuthScreen(){
             await signUpUser(email,password)
         }else {
             /// sign in
+            await signInUser(email,password)
+
         }
     }
     
