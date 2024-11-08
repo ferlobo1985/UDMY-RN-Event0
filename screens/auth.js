@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Alert, Button, Pressable, SafeAreaView, StyleSheet, Text, TextInput } from "react-native";
+import ButtonCustom from "../components/utils/button.custom";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { AppStyle } from "../constants";
 import { signUpUser, signInUser } from '../config/user.firebase';
+
 
 export default function AuthScreen(){
     const [ type, setType] = useState(true);
@@ -59,10 +61,16 @@ export default function AuthScreen(){
                     onChangeText={(text)=> setPassword(text)}
                 />
 
-                <Button
+
+                <ButtonCustom
                     title={ type ? 'Sign up':'Sign in'}
                     onPress={handleAuth}
+                    light={true}
                 />
+                {/* <Button
+                    title={ type ? 'Sign up':'Sign in'}
+                    onPress={handleAuth}
+                /> */}
 
                 <Pressable
                     style={{ flexDirection:'row'}}
