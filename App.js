@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import AppContextProvider from './store/appContext';
+import RootNavigator from './navigation/rootNavigation';
 
 /// FONTS
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,9 +23,9 @@ export default function App() {
 
 
   return (
-    <View>
-      <Text>here</Text>
-    </View>
+    <AppContextProvider>
+      <RootNavigator/>
+    </AppContextProvider>
   );
 }
 
