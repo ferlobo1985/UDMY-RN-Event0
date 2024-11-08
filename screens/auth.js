@@ -3,15 +3,24 @@ import { Alert, Button, Pressable, SafeAreaView, StyleSheet, Text, TextInput } f
 import { LinearGradient } from "expo-linear-gradient";
 
 import { AppStyle } from "../constants";
-
+import { signUpUser } from '../config/user.firebase';
 
 export default function AuthScreen(){
     const [ type, setType] = useState(true);
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('')
 
-    const handleAuth = () => {
-        Alert.alert('AUTH')
+    const handleAuth = async() => {
+        if(email === '' && password === ''){
+            Alert.alert('Please check your credentials')
+        }
+
+        if(type){
+            ///sign up
+            await signUpUser(email,password)
+        }else {
+            /// sign in
+        }
     }
     
     return(
