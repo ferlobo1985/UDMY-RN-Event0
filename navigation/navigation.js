@@ -13,6 +13,7 @@ import AuthScreen from "../screens/auth";
 /// CONTEXT
 import { useContext } from "react";
 import { AppContext } from "../store/appContext";
+import { AppStyle } from "../constants";
 
 
 
@@ -37,6 +38,7 @@ function CustomDrawerContent(props){
             { user &&
                 <DrawerItem
                     label="Sign out"
+                    labelStyle={{ color:AppStyle.purpLight}}
                     onPress={()=> AUTH.signOut()}
                 />
             }
@@ -49,6 +51,20 @@ function DrawerNavigator(){
     return(
     <Drawer.Navigator
         drawerContent={CustomDrawerContent}
+        screenOptions={{
+            headerStyle:{ backgroundColor:AppStyle.purpStrong},
+            headerTintColor:AppStyle.kakhi,
+            headerTitleStyle:{
+                fontFamily:'Pacifico',
+                fontSize:20
+            },
+            drawerStyle:{
+                backgroundColor:AppStyle.purpStrong,
+                width:200
+            },
+            drawerInactiveTintColor:AppStyle.purpLight,
+            drawerActiveTintColor:'#fff'
+        }}
     >
         <Drawer.Screen name="home_events" component={Home} 
             options={{title:'Events'}}
@@ -60,7 +76,16 @@ function DrawerNavigator(){
 
 export function AppStack({user}){
     return(
-        <Stack.Navigator>
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle:{ backgroundColor:AppStyle.purpStrong},
+                headerTintColor:AppStyle.kakhi,
+                headerTitleStyle:{
+                    fontFamily:'Pacifico',
+                    fontSize:20
+                }
+            }}
+        >
             <Stack.Screen name="Home" component={DrawerNavigator}
                 options={{headerShown:false}}
             />
