@@ -3,6 +3,8 @@ import AddEventButton from "../components/utils/addEventButton";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../store/appContext";
 
+import EventCard from '../components/utils/event.card'
+
 export default function Home(){
     const context = useContext(AppContext);
 
@@ -19,7 +21,9 @@ export default function Home(){
                 <FlatList
                     data={context.eventState.events}
                     renderItem={({item})=>(
-                        <Text>{item.name}</Text>
+                        <EventCard
+                            item={item}
+                        />
                     )}
                 />
             }
