@@ -4,7 +4,7 @@ import { AppContext } from "../store/appContext";
 
 /// NAVIGATION
 import { NavigationContainer } from "@react-navigation/native";
-import { AuthStack } from "./navigation";
+import { AuthStack,AppStack } from "./navigation";
 
 
 // FIREBASE 
@@ -35,7 +35,7 @@ export default function RootNavigator(){
 
     return(
         <NavigationContainer>
-            { user ? <Text> NORMAL STACK </Text> : <AuthStack/>}
+            { user ? <AppStack user={user}/> : <AuthStack/>}
         </NavigationContainer>
     )
 }
