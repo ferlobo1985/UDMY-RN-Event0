@@ -8,7 +8,7 @@ export default function EventCard({item,eventPressHandler}){
     return(
         <Pressable
             style={styles.container}
-            // onPress={()=> eventPressHandler(item)}
+            onPress={()=> eventPressHandler(item)}
         >
             <LinearGradient
                 colors={['#ffffff','#eeeeee']}
@@ -25,8 +25,20 @@ export default function EventCard({item,eventPressHandler}){
                 </View>
 
 
+                {/* BODY */}
+                <View style={{padding:10}}>
+                    <Text style={{
+                        fontSize:18,fontWeight:'light'
+                    }}>{item.description}</Text>
+                </View>
 
-           
+                {/* FOOTER */}
+                <View style={styles.itemFooter}>
+                    <Text>Event time:</Text>
+                    <Text style={{fontWeight:'bold'}}>
+                        {item.date}, {item.time}
+                    </Text>
+                </View>
             </LinearGradient>
         </Pressable>
     )
@@ -48,5 +60,12 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         borderBottomColor:AppStyle.purpLight,
         borderBottomWidth:1
+    },
+    itemFooter:{
+        padding:10,
+        borderTopColor:AppStyle.purpLight,
+        borderTopWidth:1,
+        flexDirection:'row',
+        justifyContent:'flex-start'
     }
 })

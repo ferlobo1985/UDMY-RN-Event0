@@ -4,15 +4,23 @@ import { useContext, useEffect } from "react";
 import { AppContext } from "../store/appContext";
 
 import EventCard from '../components/utils/event.card'
+import { useNavigation } from "@react-navigation/native";
 
 export default function Home(){
     const context = useContext(AppContext);
+    const navigation = useNavigation();
 
 
     useEffect(()=>{
         context.getHomeEvents();
     },[])
 
+
+    const eventPressHandler = (item) => {
+        navigation.navigate('Event',{
+            eventID: item.id
+        })
+    }
 
 
     return(
@@ -22,9 +30,11 @@ export default function Home(){
                     data={context.eventState.events}
                     renderItem={({item})=>(
                         <EventCard
+                            eventPressHandler={()=> eventPressHandler(item)}
                             item={item}
                         />
                     )}
+                    keyExtractor={(item)=>item.id}
                 />
             }
 
