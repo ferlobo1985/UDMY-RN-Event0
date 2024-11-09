@@ -1,9 +1,18 @@
-import { Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import AddEventButton from "../components/utils/addEventButton";
 
 export default function Home(){
     return(
-        <Text>
-            Home
-        </Text>
+        <View style={styles.container}>
+
+            <AddEventButton/>
+        </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        backgroundColor:'#fff'
+    }
+})
