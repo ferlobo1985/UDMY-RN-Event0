@@ -8,15 +8,20 @@ import { AppStyle } from "../../constants";
 import ButtonCustom from '../utils/button.custom' 
 import { useState } from "react";
 
+// firebase
+import { createEvent } from "../../config/events.firebase";
+
 
 export default function CreateEventForm(){
     const [loading, setLoading ] = useState(false);
 
     const handleEventSubmit = async(values,resetForm) => {
         setLoading(true);
-        /// firebase
-        setLoading(false)
-
+        await createEvent(values).then(()=>{
+            resetForm()
+        }).finally(()=>{
+            setLoading(false)
+        })
     }
 
     return(
