@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList,DrawerItem } from "@react-navigation/drawer";
+import { AUTH } from "../config/firebase";
 
 /// SCREEN
 import Home from '../screens/home';
@@ -8,6 +9,11 @@ import CreateEvent from '../screens/events/create';
 import EditEvent from '../screens/events/edit';
 import CompletedEvents from '../screens/completed';
 import AuthScreen from "../screens/auth";
+
+/// CONTEXT
+import { useContext } from "react";
+import { AppContext } from "../store/appContext";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -21,9 +27,29 @@ export function AuthStack(){
     )
 }
 
+
+function CustomDrawerContent(props){
+    const { user } = useContext(AppContext)
+
+    return(
+        <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props}/>
+            { user &&
+                <DrawerItem
+                    label="Sign out"
+                    onPress={()=> AUTH.signOut()}
+                />
+            }
+        </DrawerContentScrollView>
+    )
+}
+
+
 function DrawerNavigator(){
     return(
-    <Drawer.Navigator>
+    <Drawer.Navigator
+        drawerContent={CustomDrawerContent}
+    >
         <Drawer.Screen name="home_events" component={Home} 
             options={{title:'Events'}}
         />
@@ -32,7 +58,7 @@ function DrawerNavigator(){
     )
 }
 
-export function AppStack(){
+export function AppStack({user}){
     return(
         <Stack.Navigator>
             <Stack.Screen name="Home" component={DrawerNavigator}
