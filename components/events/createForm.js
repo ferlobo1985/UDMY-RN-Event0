@@ -1,15 +1,23 @@
 import { Formik, Field } from "formik";
-import { KeyboardAvoidingView, Platform, ScrollView, View} from "react-native";
+import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View} from "react-native";
 
 import { eventValidationSchema } from "./event.schema";
 import CustomInput from "../utils/input.cutom";
+import { AppStyle } from "../../constants";
+
+import ButtonCustom from '../utils/button.custom' 
+import { useState } from "react";
+
 
 export default function CreateEventForm(){
+    const [loading, setLoading ] = useState(false);
 
-    const handleSubmit = async(values,resetForm) => {
+    const handleEventSubmit = async(values,resetForm) => {
+        setLoading(true);
+        /// firebase
+        setLoading(false)
 
     }
-
 
     return(
       <KeyboardAvoidingView
@@ -20,7 +28,7 @@ export default function CreateEventForm(){
             <Formik
                 initialValues={{name:'',description:'',date:'',time:'', priority:''}}
                 onSubmit={(values,{ resetForm })=>{
-                    handleSubmit(values,resetForm)
+                    handleEventSubmit(values,resetForm)
                 }}  
                 validationSchema={eventValidationSchema}
             >
@@ -43,7 +51,33 @@ export default function CreateEventForm(){
                     numberOfLines={5}
                 />
 
+                <Field
+                    component={CustomInput}
+                    name="date"
+                    placeholder="The date (MM/DD/YYYY)"
+                />
 
+                <Field
+                    component={CustomInput}
+                    name="time"
+                    placeholder="The time (00:00)"
+                />
+
+                <Field
+                    component={CustomInput}
+                    name="priority"
+                    placeholder="Set the priority"
+                />
+
+                <View style={styles.btnContainer}>
+                    { isValid && !loading &&
+                        <ButtonCustom
+                            title="Add event"
+                            onPress={handleSubmit}
+                        />
+                    }
+                    {loading && <ActivityIndicator/>}
+                </View>
 
             </View>
             )}
@@ -52,3 +86,12 @@ export default function CreateEventForm(){
       </KeyboardAvoidingView>
     )
 }
+
+const styles = StyleSheet.create({
+    btnContainer:{
+        marginTop:20,
+        borderTopColor:AppStyle.purpStrong,
+        borderTopWidth:1,
+        paddingTop:20
+    }
+})
