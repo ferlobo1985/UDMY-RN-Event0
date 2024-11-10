@@ -12,13 +12,15 @@
       "backgroundColor": "#AFA98D"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.theCodingRev2.event0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#AFA98D"
-      }
+      },
+      "package": "com.theCodingRev2.event0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
