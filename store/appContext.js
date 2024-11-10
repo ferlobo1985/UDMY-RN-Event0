@@ -1,5 +1,5 @@
 import { createContext, useReducer, useState } from "react";
-import { getUserEvents } from "../config/events.firebase";
+import { getUserEvents, getMoreEvents } from "../config/events.firebase";
 
 
 export const AppContext = createContext();
@@ -14,6 +14,11 @@ function eventsReducer(state,action){
             return {
                 lastVisible: action.payload.lastVisible,
                 events: action.payload.events
+            }
+        case 'LOAD_MORE_EVENTS':
+            return{
+                lastVisible:action.payload.lastVisible,
+                events:[...state.events,...action.payload.events]
             }
         default:
             return state
@@ -30,13 +35,21 @@ export default function AppContextProvider({children}){
         dispatch({type:'HOME_EVENTS',payload:response})
     }
 
+    const loadMoreEvents = async() =>{
+        if(eventState.lastVisible){
+            const response = await getMoreEvents(2,eventState.lastVisible);
+            dispatch({type:'LOAD_MORE_EVENTS',payload:response})
+        }
+    }
+
 
     return(
         <AppContext.Provider value={{
             user,
             setUser,
             eventState,
-            getHomeEvents
+            getHomeEvents,
+            loadMoreEvents:loadMoreEvents
         }}>
             {children}
         </AppContext.Provider>
