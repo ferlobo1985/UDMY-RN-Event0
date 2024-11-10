@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, orderBy, query, serverTimestamp, setDoc, limit, where, startAfter } from 'firebase/firestore';
+import { collection, doc, getDocs, orderBy, query, serverTimestamp, setDoc, limit, where, startAfter, getDoc } from 'firebase/firestore';
 import { AUTH, DB } from './firebase';
 import Toast from 'react-native-root-toast';
 
@@ -69,7 +69,6 @@ export const getMoreEvents = async(docLimit=2,lastVisible)=>{
     }
 }
 
-
 function getMoreHelper(querySnapshot){
     let lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
     const events = querySnapshot.docs.map(doc=>({
@@ -84,5 +83,17 @@ function getMoreHelper(querySnapshot){
     return {
         events,
         lastVisible
+    }
+}
+
+export const getEventById = async(id) => {
+    try{
+        const docRef = await getDoc(doc(DB,'events',id));
+        if(!docRef.exists()){
+            Toast.show('Could not find document');
+        }
+        return docRef.data();
+    } catch(e){
+        console.log(e)
     }
 }
