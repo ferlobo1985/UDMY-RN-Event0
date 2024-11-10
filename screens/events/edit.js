@@ -1,9 +1,12 @@
-import { Text } from "react-native";
+import { View } from "react-native";
+import EditEventForm from '../../components/events/editForm';
 
-export default function EditEvent(){
+export default function EditEvent(props){
+    const event = props.route.params.event
+
     return(
-        <Text>
-            edit event
-        </Text>
+        <View style={{ flex:1, backgroundColor:'#fff'}}>
+            <EditEventForm event={event}/>
+        </View>
     )
 }

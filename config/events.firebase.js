@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, orderBy, query, serverTimestamp, setDoc, limit, where, startAfter, getDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, orderBy, query, serverTimestamp, setDoc, limit, where, startAfter, getDoc, updateDoc } from 'firebase/firestore';
 import { AUTH, DB } from './firebase';
 import Toast from 'react-native-root-toast';
 
@@ -23,6 +23,19 @@ export const createEvent = async(formData) => {
     } catch(e){
         Toast.show('Oops, try again');
         console.log(e)
+    }
+}
+
+export const updateEvent = async(id,formData) => {
+    try{
+        const docRef = doc(DB,'events',id);
+        await updateDoc(docRef,{
+            ...formData
+        });
+        // Toast.show('Event updated');
+        return true;
+    } catch(e){
+        Toast.show('Oops, try again');
     }
 }
 
