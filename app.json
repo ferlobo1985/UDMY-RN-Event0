@@ -27,9 +27,17 @@
       [
         "expo-font",
         {
-          "fonts":["./assets/fonts/Pacifico.ttf","./assets/fonts/Anton.ttf"]
+          "fonts": [
+            "./assets/fonts/Pacifico.ttf",
+            "./assets/fonts/Anton.ttf"
+          ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "d945978f-0c0d-4c74-bee4-986eb5d05f60"
+      }
+    }
   }
 }
